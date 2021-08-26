@@ -6,10 +6,21 @@ import styles from "./index.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const BasicLayout: React.FC = props => {
+type BasicLayoutProps = {
+  children?: React.ReactNode,
+  location: {
+    pathname: string,
+  }
+}
+
+const BasicLayout= ({children, location} : BasicLayoutProps): JSX.Element => {
 
   const today = new Date();
   const currYear = today.getFullYear()
+
+  if (location.pathname === '/auth/login' || location.pathname === '/auth/signup') {
+    return  <React.Fragment>children</React.Fragment>
+  }
   
   return (
     <Layout>
@@ -23,7 +34,7 @@ const BasicLayout: React.FC = props => {
                   <Menu />
               </Sider>
 
-              <Content style={{ padding: '24px', minHeight: 280, background: "#fff" }}>{props.children}</Content>
+              <Content style={{ padding: '24px', minHeight: 280, background: "#fff" }}>{children}</Content>
           </Layout>
     </Content>
 
