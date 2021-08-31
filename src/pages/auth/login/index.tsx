@@ -1,19 +1,34 @@
 
+import React from "react";
 import { formatMessage } from 'umi-plugin-locale';
 import { Form, Input, Button, Checkbox, Modal} from 'antd';
-import "./styles.css";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import "./styles.css";
+import { IAuthState, IGlobalProps, FormProps } from "@/common/index";
 import { Link } from 'umi';
 import { connect } from 'dva';
 
+const mapStateToProps = (state: {auth: IAuthState}) => {
+  const {isLogged, authError} = state.auth
+  return {
+    //loading: state.loading.models.users,
+    isLogged, 
+    authError,
+  };
+}
 
-function Login({dispath, ...props}) {
+type PageStateProps = ReturnType<typeof mapStateToProps>;
+type PageProps = PageStateProps & IGlobalProps;
 
-  /*const onFinish = (values) => {
+
+//const Login = (props: PageProps): JSX.Element => {
+const Login: React.FC<PageProps> = ({dispatch, authError}) => {
+
+  const onFinish = (values: FormProps) => {
     console.log(values)
     const {email, password, remember} = values;
 
-    props.dispatch({
+    dispatch({
       type: 'auth/login',
       payload: {email, password, remember},
     });
@@ -24,7 +39,7 @@ function Login({dispath, ...props}) {
       let secondsToGo = 5;
       const modal = Modal.error({
         title: formatMessage({id: 'login.modal.errTitle'}),
-        content: props.authError,
+        content: authError,
       });
       const timer = setInterval(() => {
         secondsToGo -= 1;
@@ -34,30 +49,23 @@ function Login({dispath, ...props}) {
         clearInterval(timer);
         modal.destroy();
       }, secondsToGo * 1000)
-    }*/
+    }
 
   return (
-    <div >
-            {props.authError &&  openModal()}
+    <div>
+            {authError &&  openModal()}
 
             {formatMessage({ id: 'login.title' })}
             <Form
                 name="normal_login"
                 className="login-form"
-                initialValues={{
-                  remember: true,
-                }}
+                initialValues={{remember: true}}
                 onFinish={onFinish}
               >
 
               <Form.Item
                 name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'login.email.message'}),
-                  },
-                ]}
+                rules={ [{ required: true, message: formatMessage({ id: 'login.email.message'}) }]}
               >
                   <Input 
                     prefix={<UserOutlined className="site-form-item-icon" />} 
@@ -66,12 +74,7 @@ function Login({dispath, ...props}) {
 
             <Form.Item
                 name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'login.password.message'}),
-                  },
-                ]}
+                rules={[{required: true, message: formatMessage({ id: 'login.password.message'})}]}
             >
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
@@ -86,8 +89,9 @@ function Login({dispath, ...props}) {
 
                 {/*<a className="login-form-forgot" href="">
                   {formatMessage({ id: 'login.forgetPassword'})}
-              </a>*/}
-            </Form.Item>
+                  </a>*/}
+
+              </Form.Item>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button">
@@ -95,23 +99,13 @@ function Login({dispath, ...props}) {
                 </Button>
                 <Link to="/auth/signup">{formatMessage({ id: 'login.goToRegister' })}</Link>
             </Form.Item>
-        </Form>
+              </Form>
           
     </div>
     
   );
 }
 
-function mapStateToProps(state) {
-  const { email, password, isLogged, authError } = state.auth;
-  return {
-    //loading: state.loading.models.users,
-    email,
-    password,
-    isLogged, 
-    authError,
-  };
-}
 
 export default connect(mapStateToProps)(Login);
 

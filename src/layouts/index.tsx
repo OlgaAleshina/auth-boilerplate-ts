@@ -19,7 +19,7 @@ const BasicLayout= ({children, location} : BasicLayoutProps): JSX.Element => {
   const currYear = today.getFullYear()
 
   if (location.pathname === '/auth/login' || location.pathname === '/auth/signup') {
-    return  <React.Fragment>children</React.Fragment>
+    return  <React.Fragment>{children}</React.Fragment>
   }
   
   return (
