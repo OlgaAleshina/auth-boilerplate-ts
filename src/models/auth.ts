@@ -1,4 +1,5 @@
 import { actionCreatorFactory, DvaModelBuilder } from "dva-model-creator";
+import { setCookies, getCookies } from '../utils/handlingCookies';
 import { IAuthState, FormProps } from "@/common/index";
 import * as authService from '../services/auth';
 import { router } from 'umi';
@@ -14,7 +15,7 @@ const actionCreator = actionCreatorFactory("auth");
 export const log = actionCreator<boolean>("log");
 export const authError = actionCreator<string>("authError");
 export const login = actionCreator<FormProps>("login");
-export const signup = actionCreator<FormProps>("signup")
+export const signup = actionCreator<FormProps>("signup");
 
 
 const builder = new DvaModelBuilder<IAuthState>(initState, "auth")
@@ -31,6 +32,7 @@ const builder = new DvaModelBuilder<IAuthState>(initState, "auth")
             type: 'log',
             payload: true
         })
+          yield setCookies({name:'isLogged', value: true, isExpire: payload.remember })
           yield router.push("/dashboard")
 
       } catch(error) {
@@ -47,6 +49,7 @@ const builder = new DvaModelBuilder<IAuthState>(initState, "auth")
           type: "log",
           payload: true
         })
+        yield setCookies({name:'isLogged', value: true, isExpire: payload.remember })
         yield router.push("/dashboard")
       }
       catch(error) {

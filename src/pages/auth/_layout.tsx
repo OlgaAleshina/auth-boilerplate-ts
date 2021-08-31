@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from 'umi';
 import styles from './_layout.css';
-//import { getCookies } from '../../utils/handlingCookies';
+import { getCookies } from '../../utils/handlingCookies';
 
 type LayoutProps = {
   children?: React.ReactNode,
@@ -11,9 +11,9 @@ type LayoutProps = {
 }
 const AuthLayout = ({children, location} : LayoutProps): JSX.Element => {
 
-  /*if(getCookies("isLogged")){
-    return <Redirect to="/user" />;
-  }*/
+  if(getCookies( {name:"isLogged"})){
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div className={styles.wrapper}>
