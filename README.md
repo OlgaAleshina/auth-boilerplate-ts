@@ -23,9 +23,9 @@ Main branch - includes simple login and singup forms
 
 ## Built With
 
-- [react]
-- [typescript] for type checking
-- [firebase] for authentification
-- [umi] conventional routing 
-- [dva] lightweight front-end framework based on redux, redux-saga and react-router.
-- [antdesign] ui library
+- [react]()
+- [typescript]() - for type checking
+- [firebase]() - for authentification
+- [umi]() - conventional routing 
+- [dva]() - lightweight front-end framework based on redux, redux-saga and react-router.
+- [antdesign]() - ui library
