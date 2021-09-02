@@ -3,7 +3,25 @@ import { IConfig } from 'umi-types';
 // ref: https://umijs.org/config/
 const config: IConfig =  {
   treeShaking: true,
-  
+  routes: [
+    {
+      path: '/auth',
+      component: '../pages/auth/_layout',
+      routes: [
+        {path: '/auth', redirect: '/auth/login'},
+        { path: '/auth/login', component: '../pages/auth/login' },
+        { path: '/auth/signup', component: '../pages/auth/signup' },
+      ]
+    },
+    {
+      path: '/',
+      component: '../layouts/index',
+      routes: [
+        { path: '/', redirect: '/dashboard' },
+        { path: '/dashboard', component: '../pages/dashboard/index' }//Routes: ['../routes/PrivateRoute.tsx'],
+      ]
+    }
+  ],
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
