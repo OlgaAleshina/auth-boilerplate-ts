@@ -61,7 +61,7 @@ const builder = new DvaModelBuilder<IAuthState>(initState, "auth")
   })
   .subscript( ({ history }) => {
             
-    return history.listen((state) => {
+    return history.listen(() => {
         if(getCookies({name: "isLogged"}) || initState.isLogged) {
             return 
         } else {
