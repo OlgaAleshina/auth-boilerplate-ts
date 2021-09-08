@@ -18,7 +18,8 @@ const config: IConfig =  {
       component: '../layouts/index',
       routes: [
         { path: '/', redirect: '/dashboard' },
-        { path: '/dashboard', component: '../pages/dashboard/index' }//Routes: ['../routes/PrivateRoute.tsx'],
+        { path: '/dashboard', component: '../pages/dashboard/index'},//Routes: ['../routes/PrivateRoute.tsx'],
+        { path: '/dashboard/:post', component: '../pages/dashboard/$post$.tsx'} 
       ]
     }
   ],

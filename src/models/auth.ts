@@ -12,8 +12,8 @@ const initState: IAuthState = {
 
 const actionCreator = actionCreatorFactory("auth");
 
-export const log = actionCreator<boolean>("log");
-export const authError = actionCreator<string>("authError");
+export const log = actionCreator<IAuthState["isLogged"]>("log");
+export const authError = actionCreator<IAuthState["authError"]>("authError");
 export const login = actionCreator<FormProps>("login");
 export const signup = actionCreator<FormProps>("signup");
 

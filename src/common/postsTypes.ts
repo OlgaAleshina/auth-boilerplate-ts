@@ -1,4 +1,11 @@
+export interface IPost {
+        id: number,
+        text: string,
+        created_at?: string,
+        comments?: {}[],
+}
 export interface IPostsState {
-    posts: {}[],
-    postsError: string | null
+    posts: IPost[],
+    postsError: string | null,
+    chosenPost: IPost | null
 }
